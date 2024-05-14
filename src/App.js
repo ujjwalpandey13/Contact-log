@@ -25,7 +25,8 @@ function App() {
   return (
     <div>
       <Container>
-        <h1 className='text-center mt-4'>Contact Keeper</h1>
+        <h1 className='text-center mt-4'>Contact Log</h1>
+        <h4 className='text-center mt-4'> Search contact by  first name, last name , email and phone</h4>
         <Form>
           <InputGroup className='my-3'>
 
@@ -47,11 +48,22 @@ function App() {
           </thead>
           <tbody>
             {data
+              // .filter((item) => {
+              //   return search.toLowerCase() === ''
+              //     ? item
+              //     : item.first_name.toLowerCase().includes(search);
+              
+              // }) 
+
               .filter((item) => {
-                return search.toLowerCase() === ''
-                  ? item
-                  : item.first_name.toLowerCase().includes(search);
+                const searchText = search.toLowerCase();
+                return searchText === '' ||
+                  item.first_name.toLowerCase().includes(searchText) ||
+                  item.last_name.toLowerCase().includes(searchText) ||
+                  item.email.toLowerCase().includes(searchText) ||
+                  item.phone.includes(searchText);
               })
+    
               .map((item, index) => (
                 <tr key={index}>
                   <td>{item.first_name}</td>
